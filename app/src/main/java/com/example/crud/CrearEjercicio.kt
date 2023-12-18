@@ -49,35 +49,39 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
         imagen = findViewById(R.id.imagen)
         crear = findViewById(R.id.crear)
         volver = findViewById(R.id.volver)
+
         db_ref = FirebaseDatabase.getInstance().reference
         st_ref = FirebaseStorage.getInstance().reference
         lista_ejercicios = Utilidades.obtenerListaEjercicios(db_ref)
 
         crear.setOnClickListener{
-            if(nombre.text.toString().trim().isEmpty() ||
-                series.text.toString().trim().isEmpty() ||
-                    repeticiones.toString().trim().isEmpty()){
+            if(nombre.text.toString().trim().isNullOrEmpty() ||
+                series.text.toString().trim().isNullOrEmpty() ||
+                    repeticiones.toString().trim().isNullOrEmpty()) {
                 Toast.makeText(
                     applicationContext, "Faltan datos en el formulario", Toast.LENGTH_SHORT
                 ).show()
-            }else if (Utilidades.existeEjercicio(lista_ejercicios, nombre.text.toString().trim())){
-                Toast.makeText(applicationContext, "Ese ejercicio ya existe", Toast.LENGTH_SHORT).show()
             }else if ( url_maquina == null){
                 Toast.makeText(applicationContext, "Seleccione la imagen de la maquina ",Toast.LENGTH_SHORT).show()
 
-            }else{
-                var nuevo_ejerciocio:Ejercicio?=null
+             }else if (Utilidades.existeEjercicio(lista_ejercicios, nombre.text.toString().trim())){
+            Toast.makeText(applicationContext, "Ese ejercicio ya existe", Toast.LENGTH_SHORT).show()
+        }else{
                 val id_ejercicio = db_ref.child("ejercicios").child("series").push().key
+                println("hasta aqui bien? ")
                 st_ref.child("ejercicios").child("series").child("imagenes").child(id_ejercicio!!).downloadUrl.addOnSuccessListener {
+                    uploadTask->  st_ref.child("ejercicios").child("series")
+                    .child("imagenes").child(id_ejercicio).downloadUrl.addOnSuccessListener {
                     uri: Uri->
-                    nuevo_ejerciocio = Ejercicio(id_ejercicio,nombre.text.toString(),series.text.toString().toInt(),
+
+                    var nuevo_ejerciocio = Ejercicio(id_ejercicio,nombre.text.toString(),series.text.toString().toInt(),
                         repeticiones.text.toString().toInt(), uri.toString())
 
                     db_ref.child("ejercicios").child("series").child(id_ejercicio).setValue(nuevo_ejerciocio)
 
                     Toast.makeText(applicationContext,"Ejercicio creado", Toast.LENGTH_SHORT).show()
 
-                }
+                }}
 
             }
             var id_generado:String?= db_ref.child("ejercicios").child("series").push().key
@@ -109,7 +113,7 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
 
         imagen.setOnClickListener {
 
-            accesoGaleria.launch("*/image")
+            accesoGaleria.launch("image/*")
         }
     }
 
@@ -120,10 +124,10 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
 
 
     private val accesoGaleria = registerForActivityResult(ActivityResultContracts.GetContent())
-    {
-        if(it!=null){
-            url_maquina = it
-            imagen.setImageURI(it)
+    {uri: Uri ->
+        if(uri!=null){
+            url_maquina = uri
+            imagen.setImageURI(uri)
         }
     }
 

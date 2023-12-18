@@ -29,11 +29,11 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/botonCrearEjercicio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@id/botonCrearEjercicio"
+        app:layout_constraintBottom_toTopOf="@id/botonVerEjercicio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:backgroundTint="@color/amarilloOscuro"
@@ -42,7 +42,7 @@
         android:onClick="CrearEjercicios"
         />
     <Button
-        android:id="@+id/botonCrearEjercicio"
+        android:id="@+id/botonVerEjercicio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
