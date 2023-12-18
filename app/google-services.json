@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "59149384928",
+    "firebase_url": "https://raulitomyheart-default-rtdb.firebaseio.com",
+    "project_id": "raulitomyheart",
+    "storage_bucket": "raulitomyheart.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59149384928:android:636c891fbe06ad12352485",
+        "android_client_info": {
+          "package_name": "com.example.crud"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwJU5-5veZ_UgPyD4Fev2e_eU6fmCNKFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59149384928:android:4cd22b3a4ae37fff352485",
+        "android_client_info": {
+          "package_name": "com.example.firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwJU5-5veZ_UgPyD4Fev2e_eU6fmCNKFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
