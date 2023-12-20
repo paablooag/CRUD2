@@ -12,7 +12,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/item_miniatura"
+        android:id="@+id/item_imagen"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -23,7 +23,7 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
-            android:id="@+id/item_nombre"
+            android:id="@+id/item_ejercicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -32,11 +32,11 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/item_miniatura"
+            app:layout_constraintStart_toEndOf="@id/item_imagen"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/item_ciudad"
+            android:id="@+id/item_series"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -44,19 +44,19 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/item_miniatura"
-            app:layout_constraintTop_toBottomOf="@id/item_nombre" />
+            app:layout_constraintStart_toEndOf="@id/item_imagen"
+            app:layout_constraintTop_toBottomOf="@id/item_ejercicio" />
 
         <TextView
-            android:id="@+id/item_fundacion"
+            android:id="@+id/item_repeticiones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:text="Repeticiones"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/item_ciudad"
-            app:layout_constraintTop_toBottomOf="@id/item_nombre" />
+            app:layout_constraintStart_toEndOf="@id/item_series"
+            app:layout_constraintTop_toBottomOf="@id/item_ejercicio" />
 
         <ImageView
             android:id="@+id/item_editar"

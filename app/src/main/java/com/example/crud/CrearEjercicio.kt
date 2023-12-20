@@ -57,33 +57,33 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
         crear.setOnClickListener{
             if(nombre.text.toString().trim().isNullOrEmpty() ||
                 series.text.toString().trim().isNullOrEmpty() ||
-                    repeticiones.toString().trim().isNullOrEmpty()) {
+                    repeticiones.toString().trim().isNullOrEmpty() ||
+                        url_maquina == null) {
                 Toast.makeText(
                     applicationContext, "Faltan datos en el formulario", Toast.LENGTH_SHORT
                 ).show()
-            }else if ( url_maquina == null){
-                Toast.makeText(applicationContext, "Seleccione la imagen de la maquina ",Toast.LENGTH_SHORT).show()
-
-             }else if (Utilidades.existeEjercicio(lista_ejercicios, nombre.text.toString().trim())){
+            }else if (Utilidades.existeEjercicio(lista_ejercicios, nombre.text.toString().trim())){
             Toast.makeText(applicationContext, "Ese ejercicio ya existe", Toast.LENGTH_SHORT).show()
         }else{
+                var nuevo_ejercicio:Ejercicio?=null
                 val id_ejercicio = db_ref.child("ejercicios").child("series").push().key
-                println("hasta aqui bien? ")
-                st_ref.child("ejercicios").child("series").child("imagenes").child(id_ejercicio!!).downloadUrl.addOnSuccessListener {
-                    uploadTask->  st_ref.child("ejercicios").child("series")
+
+                st_ref.child("ejercicios").child("series").child("imagenes").child(id_ejercicio!!).putFile(url_maquina!!).addOnSuccessListener {
+                    uploadTask->
+                    st_ref.child("ejercicios").child("series")
                     .child("imagenes").child(id_ejercicio).downloadUrl.addOnSuccessListener {
                     uri: Uri->
 
-                    var nuevo_ejerciocio = Ejercicio(id_ejercicio,nombre.text.toString(),series.text.toString().toInt(),
+                   nuevo_ejercicio = Ejercicio(id_ejercicio,nombre.text.toString(),series.text.toString().toInt(),
                         repeticiones.text.toString().toInt(), uri.toString())
 
-                    db_ref.child("ejercicios").child("series").child(id_ejercicio).setValue(nuevo_ejerciocio)
+                    db_ref.child("ejercicios").child("series").child(id_ejercicio).setValue(nuevo_ejercicio)
 
                     Toast.makeText(applicationContext,"Ejercicio creado", Toast.LENGTH_SHORT).show()
 
                 }}
 
-            }
+
             var id_generado:String?= db_ref.child("ejercicios").child("series").push().key
 
             launch {
@@ -104,6 +104,8 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
                 )
                 val activity = Intent(applicationContext, MainActivity::class.java)
                 startActivity(activity)
+            }
+
             }
         }
         volver.setOnClickListener {
