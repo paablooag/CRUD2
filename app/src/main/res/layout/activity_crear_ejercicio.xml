@@ -31,6 +31,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="18sp"
+        android:inputType="text"
         app:flow_horizontalBias="0.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +107,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="20dp"
-        android:text="VOLVER"/>
+        android:text="VOLVER"
+        android:onClick="retroceder"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

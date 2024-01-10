@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -44,8 +45,8 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
 
         job = Job()
         nombre = findViewById(R.id.nombre)
-        repeticiones = findViewById(R.id.repeticiones)
         series = findViewById(R.id.series)
+        repeticiones = findViewById(R.id.repeticiones)
         imagen = findViewById(R.id.imagen)
         crear = findViewById(R.id.crear)
         volver = findViewById(R.id.volver)
@@ -74,8 +75,8 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
                     .child("imagenes").child(id_ejercicio).downloadUrl.addOnSuccessListener {
                     uri: Uri->
 
-                   nuevo_ejercicio = Ejercicio(id_ejercicio,nombre.text.toString(),series.text.toString().toInt(),
-                        repeticiones.text.toString().toInt(), uri.toString())
+                   nuevo_ejercicio = Ejercicio(id_ejercicio,nombre.text.toString().toUpperCase(),repeticiones.text.toString().toInt(), series.text.toString().toInt(),
+                         uri.toString())
 
                     db_ref.child("ejercicios").child("series").child(id_ejercicio).setValue(nuevo_ejercicio)
 
@@ -87,22 +88,22 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
             var id_generado:String?= db_ref.child("ejercicios").child("series").push().key
 
             launch {
-                val url_imagen=
+                val url_imagen_firebase=
                     Utilidades.guardarImagen(st_ref, id_generado!!,url_maquina!!)
 
                 Utilidades.escribirEjercicio(
                     db_ref, id_generado!!,
-                    nombre.text.toString().trim(),
-                    series.toString().trim().toInt(),
+                    nombre.toString().trim().toUpperCase(),
                     repeticiones.toString().trim().toInt(),
-                    url_imagen
+                    series.toString().trim().toInt(),
+                    url_imagen_firebase
                 )
                 Utilidades.tostadaCorrutina(
                     this_activity,
                     applicationContext,
                     "Ejercicio creado"
                 )
-                val activity = Intent(applicationContext, MainActivity::class.java)
+                val activity = Intent(applicationContext, CrearEjercicio::class.java)
                 startActivity(activity)
             }
 
@@ -135,4 +136,9 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + job
+
+    fun retroceder(view: View) {
+        val newintent=Intent(this, MainActivity::class.java)
+        startActivity(newintent)
+    }
 }

@@ -44,11 +44,10 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_ejercicio)
 
-
         val this_activity = this
         job = Job()
 
-        pojo_ejercicio = intent.getParcelableExtra<Ejercicio>("ejercicio")!!
+        pojo_ejercicio = intent.getParcelableExtra<Ejercicio>("ejercicios")!!
 
 
         ejercicio = findViewById(R.id.ejercicio)
@@ -81,20 +80,18 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
                 repeticiones.text.toString().trim().isEmpty()
             ) {
                 Toast.makeText(
-                    applicationContext, "Faltan datos en el " +
-                            "formularion", Toast.LENGTH_SHORT
+                    applicationContext, "Faltan datos en el formulario", Toast.LENGTH_SHORT
                 ).show()
 
             } else if (Utilidades.existeEjercicio(lista_ejercicios, ejercicio.text.toString().trim())) {
-                Toast.makeText(applicationContext, "Ese Club ya existe", Toast.LENGTH_SHORT)
+                Toast.makeText(applicationContext, "Ejercicio existente", Toast.LENGTH_SHORT)
                     .show()
             } else {
 
-                //GlobalScope(Dispatchers.IO)
-                var url_escudo_firebase = String()
+                var url_imagen_firebase = String()
                 launch {
                     if(url_imagen == null){
-                        url_escudo_firebase = pojo_ejercicio.imagen!!
+                        url_imagen_firebase = pojo_ejercicio.imagen!!
                     }else{
                         val url_escudo_firebase =
                             Utilidades.guardarImagen(st_ref, pojo_ejercicio.id!!, url_imagen!!)
@@ -106,12 +103,12 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
                         ejercicio.text.toString().trim(),
                         series.text.toString().trim().toInt(),
                         repeticiones.text.toString().trim().toInt(),
-                        url_escudo_firebase
+                        url_imagen_firebase
                     )
                     Utilidades.tostadaCorrutina(
                         this_activity,
                         applicationContext,
-                        "Club modificado con exito"
+                        "Ejercicio modificado"
                     )
                     val activity = Intent(applicationContext, MainActivity::class.java)
                     startActivity(activity)
@@ -152,10 +149,5 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
     }
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + job
-
-    fun retroceder(view: View) {
-        val newintent= Intent(this, VerEjercicio::class.java)
-        startActivity(newintent)
-    }
 
 }

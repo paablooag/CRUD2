@@ -22,14 +22,13 @@ class EjercicioAdaptador(private val lista_ejercicio: MutableList<Ejercicio>):
 
     private lateinit var contexto:Context
     private var lista_filtrada = lista_ejercicio
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EjercicioViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):EjercicioAdaptador.EjercicioViewHolder {
         val vista_item = LayoutInflater.from(parent.context).inflate(R.layout.layout_ejercicios,parent,false)
         contexto = parent.context
         return EjercicioViewHolder(vista_item)
     }
 
-
-    override fun onBindViewHolder(holder: EjercicioViewHolder, position: Int) {
+    override fun onBindViewHolder(holder:EjercicioAdaptador.EjercicioViewHolder, position: Int) {
         val item_actual = lista_filtrada[position]
         holder.ejercicio.text = item_actual.nombre
         holder.series.text = item_actual.series.toString()
@@ -47,9 +46,11 @@ class EjercicioAdaptador(private val lista_ejercicio: MutableList<Ejercicio>):
             .into(holder.imagen)
 
         holder.editar.setOnClickListener {
-            val activity = Intent(contexto,EditarEjercicio::class.java)
-            activity.putExtra("club", item_actual)
-            contexto.startActivity(activity)
+            val newintent = Intent(contexto,EditarEjercicio::class.java)
+            println("hasta aqui he llegado")
+            newintent.putExtra("ejercicios", item_actual)
+            println("hasta aqui tambien")
+            contexto.startActivity(newintent)
         }
 
         holder.eliminar.setOnClickListener {
@@ -70,8 +71,8 @@ class EjercicioAdaptador(private val lista_ejercicio: MutableList<Ejercicio>):
     class EjercicioViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val imagen: ImageView = itemView.findViewById(R.id.item_imagen)
         val ejercicio: TextView = itemView.findViewById(R.id.item_ejercicio)
-        val series: TextView = itemView.findViewById(R.id.item_series)
-        val repeticiones: TextView = itemView.findViewById(R.id.item_repeticiones)
+        val series: TextView = itemView.findViewById(R.id.item_series1)
+        val repeticiones: TextView = itemView.findViewById(R.id.item_repeticiones1)
         val editar: ImageView = itemView.findViewById(R.id.item_editar)
         val eliminar: ImageView = itemView.findViewById(R.id.item_borrar)
 
