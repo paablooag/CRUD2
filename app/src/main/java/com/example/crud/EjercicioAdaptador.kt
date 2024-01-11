@@ -20,7 +20,7 @@ class EjercicioAdaptador(private val lista_ejercicio: MutableList<Ejercicio>):
     RecyclerView.Adapter<EjercicioAdaptador.EjercicioViewHolder>(), Filterable {
 
 
-    private lateinit var contexto:Context
+    private lateinit var contexto: Context
     private var lista_filtrada = lista_ejercicio
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):EjercicioAdaptador.EjercicioViewHolder {
         val vista_item = LayoutInflater.from(parent.context).inflate(R.layout.layout_ejercicios,parent,false)
