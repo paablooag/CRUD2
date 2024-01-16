@@ -10,10 +10,10 @@
 
     <ImageView
         android:id="@+id/imagen"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/insertar_foto"
+        android:src="@drawable/a_adirgymbrogenius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
