@@ -19,6 +19,9 @@
             android:name=".CrearEjercicio"
             android:exported="false" />
         <activity
+            android:name=".EditarEjercicio"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>

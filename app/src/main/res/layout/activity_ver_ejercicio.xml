@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VerEjercicio">
+    tools:context=".VerEjercicio"
+    android:background="@drawable/fondopantalla">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lista_ejercicios"
@@ -27,7 +28,7 @@
         android:text="VOLVER"
         android:textSize="18sp"
         android:textColor="@color/amarilloOscuro"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/blacktransparente"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

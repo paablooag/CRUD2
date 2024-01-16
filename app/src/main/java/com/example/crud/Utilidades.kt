@@ -40,9 +40,7 @@ class Utilidades {
                     }
                 })
             return lista
-
         }
-
         fun escribirEjercicio(db_ref: DatabaseReference, id: String, nombre: String, series: Int, repeticiones: Int, url_firebase: String) =
             db_ref.child("ejercicios").child("series").child(id).setValue(
                 Ejercicio(

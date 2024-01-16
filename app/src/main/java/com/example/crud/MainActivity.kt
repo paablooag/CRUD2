@@ -26,8 +26,6 @@ class MainActivity : AppCompatActivity() {
             val activity = Intent(applicationContext, CrearEjercicio::class.java)
             startActivity(activity)
         }
-
-
     }
 
 }
