@@ -54,7 +54,7 @@ class Utilidades {
         suspend fun guardarImagen(sto_ref: StorageReference, id: String, imagen: Uri): String {
             lateinit var url_imagen_firebase: Uri
 
-            url_imagen_firebase = sto_ref.child("ejercicios").child("series").child(id)
+            url_imagen_firebase = sto_ref.child("ejercicios").child("series").child("imagenes").child(id)
                 .putFile(imagen).await().storage.downloadUrl.await()
 
             return url_imagen_firebase.toString()
