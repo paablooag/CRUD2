@@ -105,10 +105,9 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
                     if(url_imagen == null){
                         url_imagen_firebase = pojo_ejercicio.imagen!!
                     }else{
-                        val url_escudo_firebase =
-                            Utilidades.guardarImagen(st_ref, pojo_ejercicio.id!!, url_imagen!!)
+                        url_imagen_firebase =
+                        Utilidades.guardarImagen(st_ref, pojo_ejercicio.id!!, url_imagen!!)
                     }
-
 
                     Utilidades.escribirEjercicio(
                         db_ref, pojo_ejercicio.id!!,
