@@ -1,6 +1,5 @@
 package com.example.crud
 
-import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
@@ -12,5 +11,7 @@ data class Ejercicio(
     var series: Int? = null,
     var repeticiones: Int? = null,
     var imagen: String? = null,
-    var rating: Float? = null
-) : Parcelable
+    var rating: Float? = null,
+    var fecha : String? = null
+) : Parcelable {
+}

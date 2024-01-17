@@ -35,6 +35,7 @@ class EjercicioAdaptador(private val lista_ejercicio: MutableList<Ejercicio>):
         holder.series.text = item_actual.series.toString()
         holder.repeticiones.text = item_actual.repeticiones.toString()
         holder.rating.rating = item_actual.rating.toString().toFloat()
+        holder.fecha.text = item_actual.fecha
 
         val URL:String? = when(item_actual.imagen){
             ""-> null
@@ -68,7 +69,6 @@ class EjercicioAdaptador(private val lista_ejercicio: MutableList<Ejercicio>):
         }
 
 
-
     }
     class EjercicioViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val imagen: ImageView = itemView.findViewById(R.id.item_imagen)
@@ -78,6 +78,7 @@ class EjercicioAdaptador(private val lista_ejercicio: MutableList<Ejercicio>):
         val editar: ImageView = itemView.findViewById(R.id.item_editar)
         val eliminar: ImageView = itemView.findViewById(R.id.item_borrar)
         val rating: RatingBar = itemView.findViewById(R.id.item_rating)
+        val fecha: TextView = itemView.findViewById(R.id.item_fecha)
 
     }
     override fun getItemCount(): Int = lista_filtrada.size

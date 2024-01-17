@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -24,7 +25,6 @@ class VerEjercicio : AppCompatActivity() {
     private lateinit var lista: MutableList<Ejercicio>
     private lateinit var adaptador: EjercicioAdaptador
     private lateinit var db_ref: DatabaseReference
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ver_ejercicio)
@@ -32,9 +32,6 @@ class VerEjercicio : AppCompatActivity() {
 
         lista = mutableListOf()
         db_ref = FirebaseDatabase.getInstance().getReference()
-
-
-
 
 
         db_ref.child("ejercicios")
@@ -55,6 +52,7 @@ class VerEjercicio : AppCompatActivity() {
                     println(error.message)
                 }
 
+
             })
 
         adaptador = EjercicioAdaptador(lista)
@@ -70,8 +68,9 @@ class VerEjercicio : AppCompatActivity() {
             //finish()
         }
 
-    }
 
+
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_ejercicios, menu)
         val item = menu?.findItem(R.id.search)
@@ -102,6 +101,11 @@ class VerEjercicio : AppCompatActivity() {
 
         })
 
+
         return super.onCreateOptionsMenu(menu)
     }
+
+
+
+
 }

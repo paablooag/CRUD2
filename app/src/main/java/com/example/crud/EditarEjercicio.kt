@@ -39,8 +39,6 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
 
 
     private lateinit var job: Job
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_ejercicio)
@@ -65,6 +63,7 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
         repeticiones.setText(pojo_ejercicio.repeticiones.toString())
 
 
+
         Glide.with(applicationContext)
             .load(pojo_ejercicio.imagen)
             .apply(Utilidades.opcionesGlide(applicationContext))
@@ -86,10 +85,20 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
                     applicationContext, "Faltan datos en el formulario", Toast.LENGTH_SHORT
                 ).show()
 
-            } else if (Utilidades.existeEjercicio(lista_ejercicios, ejercicio.text.toString().trim())) {
-                Toast.makeText(applicationContext, "Ejercicio existente", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
+            }
+            else if (Utilidades.existeEjercicio(
+                    lista_ejercicios,
+                    ejercicio.text.toString().trim()
+                ) && ejercicio.text.toString().trim() != pojo_ejercicio.nombre
+            ) {
+                Toast.makeText(
+                    applicationContext,
+                    "Ese ejercicio ya existe",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            else {
 
                 var url_imagen_firebase = String()
                 launch {
@@ -107,6 +116,7 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
                         series.text.toString().trim().toInt(),
                         repeticiones.text.toString().trim().toInt(),
                         url_imagen_firebase,
+                        pojo_ejercicio.fecha!!,
                         ratingBar.rating
                     )
                     Utilidades.tostadaCorrutina(
@@ -117,13 +127,7 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
                     val activity = Intent(applicationContext, MainActivity::class.java)
                     startActivity(activity)
                 }
-
-
             }
-
-
-
-
         }
 
         volver.setOnClickListener {
