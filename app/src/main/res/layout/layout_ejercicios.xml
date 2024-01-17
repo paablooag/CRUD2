@@ -9,7 +9,20 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/verdeoscuro">
+        android:background="@color/verdeoscuro"
+        android:padding="8dp"
+        android:layout_margin="4dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+    >
         <TextView
             android:id="@+id/item_fecha"
             android:layout_width="wrap_content"

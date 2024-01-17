@@ -44,7 +44,6 @@ class VerEjercicio : AppCompatActivity() {
                         val pojo_ejercicio = hijo?.getValue(Ejercicio::class.java)
                         lista.add(pojo_ejercicio!!)
                     }
-
                     recycler.adapter?.notifyDataSetChanged()
                 }
 
