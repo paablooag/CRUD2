@@ -25,10 +25,12 @@ class VerEjercicio : AppCompatActivity() {
     private lateinit var lista: MutableList<Ejercicio>
     private lateinit var adaptador: EjercicioAdaptador
     private lateinit var db_ref: DatabaseReference
+    private lateinit var filter : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ver_ejercicio)
         volver = findViewById(R.id.volver)
+        filter = findViewById(R.id.filter)
 
         lista = mutableListOf()
         db_ref = FirebaseDatabase.getInstance().getReference()
@@ -43,6 +45,7 @@ class VerEjercicio : AppCompatActivity() {
                         ->
                         val pojo_ejercicio = hijo?.getValue(Ejercicio::class.java)
                         lista.add(pojo_ejercicio!!)
+
                     }
                     recycler.adapter?.notifyDataSetChanged()
                 }
@@ -61,6 +64,14 @@ class VerEjercicio : AppCompatActivity() {
         recycler.setHasFixedSize(true)
         recycler.addItemDecoration(DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL))
 
+        filter.setOnClickListener(){
+            lista.sortBy { it.rating}
+            //carga la lista ordenada
+            recycler.adapter?.notifyDataSetChanged()
+            adaptador = EjercicioAdaptador(lista)
+            recycler.adapter = adaptador
+
+        }
         volver.setOnClickListener {
             val activity = Intent(applicationContext, MainActivity::class.java)
             startActivity(activity)
