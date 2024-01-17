@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,7 @@ class EjercicioAdaptador(private val lista_ejercicio: MutableList<Ejercicio>):
         holder.ejercicio.text = item_actual.nombre
         holder.series.text = item_actual.series.toString()
         holder.repeticiones.text = item_actual.repeticiones.toString()
+        holder.rating.rating = item_actual.rating.toString().toFloat()
 
         val URL:String? = when(item_actual.imagen){
             ""-> null
@@ -75,6 +77,7 @@ class EjercicioAdaptador(private val lista_ejercicio: MutableList<Ejercicio>):
         val repeticiones: TextView = itemView.findViewById(R.id.item_repeticiones1)
         val editar: ImageView = itemView.findViewById(R.id.item_editar)
         val eliminar: ImageView = itemView.findViewById(R.id.item_borrar)
+        val rating: RatingBar = itemView.findViewById(R.id.item_rating)
 
     }
     override fun getItemCount(): Int = lista_filtrada.size

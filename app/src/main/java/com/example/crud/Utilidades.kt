@@ -5,14 +5,12 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import com.google.android.gms.fido.fido2.api.common.RequestOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.tasks.await
-import android.graphics.drawable.Drawable
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class Utilidades {
@@ -41,14 +39,23 @@ class Utilidades {
                 })
             return lista
         }
-        fun escribirEjercicio(db_ref: DatabaseReference, id: String, nombre: String, series: Int, repeticiones: Int, url_firebase: String) =
+        fun escribirEjercicio(
+            db_ref: DatabaseReference,
+            id: String,
+            nombre: String,
+            series: Int,
+            repeticiones: Int,
+            url_firebase: String,
+            rating: Float
+        ) =
             db_ref.child("ejercicios").child("series").child(id).setValue(
                 Ejercicio(
                     id,
                     nombre,
                     series,
                     repeticiones,
-                    url_firebase
+                    url_firebase,
+                    rating
                 ))
 
         suspend fun guardarImagen(sto_ref: StorageReference, id: String, imagen: Uri): String {

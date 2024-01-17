@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
+import android.widget.RatingBar
 
 
 class CrearEjercicio : AppCompatActivity(), CoroutineScope {
@@ -36,19 +37,19 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
 
 
     private lateinit var job: Job
-
-
+    private lateinit var rating: RatingBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_ejercicio)
         val this_activity = this
-
+//crea un job para la corrutina
         job = Job()
         nombre = findViewById(R.id.nombre)
         series = findViewById(R.id.series)
         repeticiones = findViewById(R.id.repeticiones)
         imagen = findViewById(R.id.imagen)
         crear = findViewById(R.id.crear)
+        rating = findViewById(R.id.ratingBar)
         volver = findViewById(R.id.volver)
 
         db_ref = FirebaseDatabase.getInstance().reference
@@ -59,6 +60,7 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
             if(nombre.text.toString().trim().isNullOrEmpty() ||
                 series.text.toString().trim().isNullOrEmpty() ||
                     repeticiones.text.toString().trim().isNullOrEmpty() ||
+                        rating.toString().trim().isNullOrEmpty() ||
                         url_maquina == null) {
                 Toast.makeText(
                     applicationContext, "Faltan datos en el formulario", Toast.LENGTH_SHORT
@@ -66,7 +68,7 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
             }else if (Utilidades.existeEjercicio(lista_ejercicios, nombre.text.toString().trim())){
             Toast.makeText(applicationContext, "Ese ejercicio ya existe", Toast.LENGTH_SHORT).show()
         }else{
-
+//crea un id para el ejercicio
             var id_generado:String?= db_ref.child("ejercicios").child("series").push().key
 
             launch {
@@ -78,7 +80,8 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
                     nombre.text.trim().toString().toUpperCase(),
                     series.text.trim().toString().toInt(),
                     repeticiones.text.trim().toString().toInt(),
-                    url_imagen_firebase
+                    url_imagen_firebase,
+                    rating.rating
                 )
                 Utilidades.tostadaCorrutina(
                     this_activity,

@@ -11,5 +11,6 @@ data class Ejercicio(
     var nombre: String? = null,
     var series: Int? = null,
     var repeticiones: Int? = null,
-    var imagen: String? = null
+    var imagen: String? = null,
+    var rating: Float? = null
 ) : Parcelable

@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.SearchView
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -31,6 +32,7 @@ class VerEjercicio : AppCompatActivity() {
 
         lista = mutableListOf()
         db_ref = FirebaseDatabase.getInstance().getReference()
+
 
 
 
@@ -60,10 +62,12 @@ class VerEjercicio : AppCompatActivity() {
         recycler.adapter = adaptador
         recycler.layoutManager = LinearLayoutManager(applicationContext)
         recycler.setHasFixedSize(true)
+        recycler.addItemDecoration(DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL))
 
         volver.setOnClickListener {
             val activity = Intent(applicationContext, MainActivity::class.java)
             startActivity(activity)
+            //finish()
         }
 
     }

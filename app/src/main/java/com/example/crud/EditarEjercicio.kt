@@ -4,10 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +30,7 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
     private lateinit var imagen: ImageView
     private lateinit var modificar: Button
     private lateinit var volver: Button
-
+    private lateinit var ratingBar: RatingBar
     private var url_imagen: Uri? = null
     private lateinit var db_ref: DatabaseReference
     private lateinit var st_ref: StorageReference
@@ -59,8 +59,8 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
         imagen = findViewById(R.id.imagen)
         modificar = findViewById(R.id.modificar)
         volver = findViewById(R.id.volver)
-
         ejercicio.setText(pojo_ejercicio.nombre)
+        ratingBar = findViewById(R.id.rating)
         series.setText(pojo_ejercicio.series.toString())
         repeticiones.setText(pojo_ejercicio.repeticiones.toString())
 
@@ -106,7 +106,8 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
                         ejercicio.text.toString().trim(),
                         series.text.toString().trim().toInt(),
                         repeticiones.text.toString().trim().toInt(),
-                        url_imagen_firebase
+                        url_imagen_firebase,
+                        ratingBar.rating
                     )
                     Utilidades.tostadaCorrutina(
                         this_activity,
