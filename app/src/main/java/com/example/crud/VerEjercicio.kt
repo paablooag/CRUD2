@@ -70,6 +70,7 @@ class VerEjercicio : AppCompatActivity() {
             recycler.adapter?.notifyDataSetChanged()
             adaptador = EjercicioAdaptador(lista)
             recycler.adapter = adaptador
+            lista.reverse()
 
         }
         volver.setOnClickListener {
