@@ -69,6 +69,7 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
                 series.text.toString().trim().isNullOrEmpty() ||
                     repeticiones.text.toString().trim().isNullOrEmpty() ||
                         rating.toString().trim().isNullOrEmpty() ||
+                rating.rating == 0.0f ||
                         url_maquina == null) {
                 Toast.makeText(
                     applicationContext, "Faltan datos en el formulario", Toast.LENGTH_SHORT
