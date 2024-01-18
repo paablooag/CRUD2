@@ -12,6 +12,9 @@ data class Ejercicio(
     var repeticiones: Int? = null,
     var imagen: String? = null,
     var rating: Float? = null,
-    var fecha : String? = null
+    var fecha : String? = null,
+    var estado_noti:Int? = null,
+    var notificacion_usuario: String? = null
+
 ) : Parcelable {
 }
