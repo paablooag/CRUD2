@@ -31,8 +31,8 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
     private lateinit var repeticiones:EditText
     private lateinit var series:EditText
     private lateinit var imagen:ImageView
-    private lateinit var crear:Button
-    private lateinit var volver:Button
+    private lateinit var crear:ImageView
+    private lateinit var volver:ImageView
     private lateinit var db_ref: DatabaseReference
     private lateinit var st_ref: StorageReference
     private var url_maquina: Uri? = null
@@ -97,14 +97,14 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
                     applicationContext,
                     "Ejercicio creado"
                 )
-                val activity = Intent(applicationContext, MainActivity::class.java)
+                val activity = Intent(applicationContext, VerEjercicio::class.java)
                 startActivity(activity)
             }
             }
         }
     //retrocede a la actividad principal
         volver.setOnClickListener {
-            val activity = Intent(applicationContext, MainActivity::class.java)
+            val activity = Intent(applicationContext, VerEjercicio::class.java)
             startActivity(activity)
         }
 
@@ -133,12 +133,8 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
 //corrutina para mostrar un toast
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + job
-    //funcion para retroceder
 
-    fun retroceder(view: View) {
-        val newintent=Intent(this, MainActivity::class.java)
-        startActivity(newintent)
-    }
+
 
 
 }

@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        crear = findViewById(R.id.botonCrearEjercicio)
         ver = findViewById(R.id.botonVerEjercicio)
 
         ver.setOnClickListener {
@@ -22,10 +21,5 @@ class MainActivity : AppCompatActivity() {
             startActivity(activity)
         }
 
-        crear.setOnClickListener {
-            val activity = Intent(applicationContext, CrearEjercicio::class.java)
-            startActivity(activity)
-        }
     }
-
 }

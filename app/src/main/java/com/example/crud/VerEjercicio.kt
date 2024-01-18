@@ -4,14 +4,10 @@ package com.example.crud
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -29,6 +25,8 @@ class VerEjercicio : AppCompatActivity() {
     private lateinit var filter: ImageView
     private lateinit var anadir: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ver_ejercicio)
         filter = findViewById(R.id.filter)
@@ -96,6 +94,11 @@ class VerEjercicio : AppCompatActivity() {
         }
 
 
+    }
+
+    fun retroceder(view: View) {
+        val activity = Intent(applicationContext, MainActivity::class.java)
+        startActivity(activity)
     }
 }
 
