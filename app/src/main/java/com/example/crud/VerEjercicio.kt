@@ -8,8 +8,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -20,22 +22,36 @@ import com.google.firebase.database.ValueEventListener
 
 
 class VerEjercicio : AppCompatActivity() {
-    private lateinit var volver: Button
     private lateinit var recycler: RecyclerView
     private lateinit var lista: MutableList<Ejercicio>
     private lateinit var adaptador: EjercicioAdaptador
     private lateinit var db_ref: DatabaseReference
-    private lateinit var filter : Button
+    private lateinit var filter: ImageView
+    private lateinit var anadir: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ver_ejercicio)
-        volver = findViewById(R.id.volver)
         filter = findViewById(R.id.filter)
-
+        anadir = findViewById(R.id.anadir)
         lista = mutableListOf()
         db_ref = FirebaseDatabase.getInstance().getReference()
+        var searchView = findViewById<SearchView>(R.id.searchView)
 
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adaptador.filter.filter(newText)
+                return true
+            }
+        })
+
+        anadir.setOnClickListener {
+            val activity = Intent(applicationContext, CrearEjercicio::class.java)
+            startActivity(activity)
+        }
         db_ref.child("ejercicios")
             .child("series")
             .addValueEventListener(object : ValueEventListener {
@@ -62,10 +78,15 @@ class VerEjercicio : AppCompatActivity() {
         recycler.adapter = adaptador
         recycler.layoutManager = LinearLayoutManager(applicationContext)
         recycler.setHasFixedSize(true)
-        recycler.addItemDecoration(DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL))
+        recycler.addItemDecoration(
+            DividerItemDecoration(
+                applicationContext,
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
-        filter.setOnClickListener(){
-            lista.sortBy { it.rating}
+        filter.setOnClickListener() {
+            lista.sortBy { it.rating }
             //carga la lista ordenada
             recycler.adapter?.notifyDataSetChanged()
             adaptador = EjercicioAdaptador(lista)
@@ -73,50 +94,9 @@ class VerEjercicio : AppCompatActivity() {
             lista.reverse()
 
         }
-        volver.setOnClickListener {
-            val activity = Intent(applicationContext, MainActivity::class.java)
-            startActivity(activity)
-            //finish()
-        }
-
 
 
     }
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_ejercicios, menu)
-        val item = menu?.findItem(R.id.search)
-        val searhView = item?.actionView as SearchView
-
-
-        searhView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                adaptador.filter.filter((newText))
-                return true
-            }
-        })
-
-        item.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-
-            override fun onMenuItemActionExpand(p0: MenuItem): Boolean {
-                return true
-            }
-
-            override fun onMenuItemActionCollapse(p0: MenuItem): Boolean {
-                adaptador.filter.filter("")
-                return true
-            }
-
-        })
-
-
-        return super.onCreateOptionsMenu(menu)
-    }
-
-
-
-
 }
+
+

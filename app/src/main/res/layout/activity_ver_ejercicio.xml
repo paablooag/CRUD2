@@ -8,58 +8,59 @@
     android:background="@drawable/fondopantalla">
 
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:background="@color/blacktransparente"
+        android:id="@+id/layoutPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/lista_ejercicios"
+        >
+        <SearchView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchView"
+            android:background="@color/white"
+            android:queryHint="Buscar"
+            android:iconifiedByDefault="false"
+            android:layout_marginBottom="10dp"
+            />
+
+        <ImageView
+            android:id="@+id/filter"
+            android:onClick="filter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_filter_list_24"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lista_ejercicios"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="4dp"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@id/volver"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@id/layoutPrincipal"
+        app:layout_constraintBottom_toTopOf="@id/anadir"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/layout_ejercicios" />
-    <Button
-        android:id="@+id/filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Filtrar"
-        android:textSize="18sp"
-        android:textColor="@color/amarilloOscuro"
-        android:backgroundTint="@color/blacktransparente"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        />
-    <Button
-        android:id="@+id/volver"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="VOLVER"
-        android:textSize="18sp"
-        android:textColor="@color/amarilloOscuro"
-        android:backgroundTint="@color/blacktransparente"
-        android:textStyle="bold"
+
+    <ImageView
+        android:id="@+id/anadir"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
+        android:src="@drawable/anadirimg"
         />
-
-
-
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
