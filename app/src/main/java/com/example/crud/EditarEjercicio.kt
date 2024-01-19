@@ -28,8 +28,8 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
     private lateinit var series : EditText
     private lateinit var repeticiones : EditText
     private lateinit var imagen: ImageView
-    private lateinit var modificar: Button
-    private lateinit var volver: Button
+    private lateinit var modificar: ImageView
+    private lateinit var volver: ImageView
     private lateinit var ratingBar: RatingBar
     private var url_imagen: Uri? = null
     private lateinit var db_ref: DatabaseReference
@@ -79,7 +79,8 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
 
             if (ejercicio.text.toString().trim().isEmpty() ||
                 series.text.toString().trim().isEmpty() ||
-                repeticiones.text.toString().trim().isEmpty()
+                repeticiones.text.toString().trim().isEmpty()||
+                ratingBar.rating == 0.0f
             ) {
                 Toast.makeText(
                     applicationContext, "Faltan datos en el formulario", Toast.LENGTH_SHORT
