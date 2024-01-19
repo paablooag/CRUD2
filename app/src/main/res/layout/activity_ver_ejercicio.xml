@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".VerEjercicio"
-    android:background="@drawable/fondopantalla">
+    android:background="@drawable/fondopruebaappp">
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -39,6 +39,7 @@
             android:src="@drawable/baseline_filter_list_24"
             android:textColor="@color/black"
             android:layout_marginBottom="10dp"
+            android:background="@color/black"
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -48,29 +49,40 @@
         android:layout_height="0dp"
         android:padding="4dp"
         app:layout_constraintTop_toBottomOf="@id/layoutPrincipal"
-        app:layout_constraintBottom_toTopOf="@id/anadir"
+        app:layout_constraintBottom_toTopOf="@id/layoutbajo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/layout_ejercicios" />
 
-    <ImageView
-        android:id="@+id/anadir"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutbajo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/anadirimg"
-        />
-    <ImageView
-        android:id="@+id/volver"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/back"
-        android:onClick="retroceder"
-        />
+        >
+        <ImageView
+            android:id="@+id/volver"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/back"
+            android:onClick="retroceder"
+            android:layout_weight="0"
+            />
+        <ImageView
+            android:id="@+id/anadir"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/anadirimg"
+            android:layout_gravity="center"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

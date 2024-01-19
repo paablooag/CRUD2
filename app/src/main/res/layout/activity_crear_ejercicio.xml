@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CrearEjercicio"
-    android:background="@drawable/fondopantalla">
+    android:background="@drawable/fondopruebaappp">
 
 
     <ImageView
         android:id="@+id/imagen"
-        android:layout_width="230dp"
-        android:layout_height="230dp"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/a_adirgymbrogenius"
+        android:src="@drawable/botonanadir"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginTop="40dp"
         android:hint="Introduce nombre del ejercicio"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -70,7 +71,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/series"/>
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutbajo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
     <ImageView
         android:id="@+id/crear"
         android:src="@drawable/anadirimg"
@@ -96,6 +104,8 @@
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/back"
         android:onClick="retroceder"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
