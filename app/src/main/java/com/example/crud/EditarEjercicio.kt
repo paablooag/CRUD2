@@ -3,8 +3,7 @@ package com.example.crud
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
+import android.provider.Settings
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -43,7 +42,6 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_ejercicio)
 
-        Log.d("HOLAAAAA", "ACTIVITY CREADO")
 
         val this_activity = this
         job = Job()
@@ -100,7 +98,8 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
             }
 
             else {
-
+                val androidId =
+                    Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
                 var url_imagen_firebase = String()
                 launch {
                     if(url_imagen == null){
@@ -117,7 +116,9 @@ class EditarEjercicio : AppCompatActivity(), CoroutineScope {
                         repeticiones.text.toString().trim().toInt(),
                         url_imagen_firebase,
                         pojo_ejercicio.fecha!!,
-                        ratingBar.rating
+                        ratingBar.rating,
+                        Estado.MODIFICADO,
+                        androidId
                     )
                     Utilidades.tostadaCorrutina(
                         this_activity,

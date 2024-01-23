@@ -47,7 +47,9 @@ class Utilidades {
             repeticiones: Int,
             url_firebase: String,
             fecha: String,
-            rating: Float
+            rating: Float,
+            estado_notificacion: Int,
+            androidId: String
         ) =
             db_ref.child("ejercicios").child("series").child(id).setValue(
                 Ejercicio(
@@ -57,7 +59,9 @@ class Utilidades {
                     repeticiones,
                     url_firebase,
                     rating,
-                    fecha
+                    fecha,
+                    estado_notificacion,
+                    androidId
                 ))
 
         suspend fun guardarImagen(sto_ref: StorageReference, id: String, imagen: Uri): String {

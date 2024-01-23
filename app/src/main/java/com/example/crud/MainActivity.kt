@@ -43,6 +43,76 @@ class MainActivity : AppCompatActivity() {
             startActivity(activity)
         }
 
+
+        crearCanalNotificaciones()
+        androidId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+        db_ref = FirebaseDatabase.getInstance().reference
+        generador = AtomicInteger(0)
+
+        //Controlador de notificaciones
+        db_ref.child("ejercicios").child("series")
+            .addChildEventListener(object : ChildEventListener {
+
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    val pojo_ejercicio = snapshot.getValue(Ejercicio::class.java)
+                    if (!pojo_ejercicio!!.notificacion_usuario.equals(androidId) && pojo_ejercicio.estado_noti!!.equals(
+                            Estado.CREADO
+                        )
+                    ) {
+                        db_ref.child("ejercicios").child("series").child(pojo_ejercicio.id!!)
+                            .child("estado_noti").setValue(Estado.NOTIFICADO)
+                        generarNotificacion(
+                            generador.incrementAndGet(), pojo_ejercicio,
+                            "Se ha creado un nuevo ejercicio, ${pojo_ejercicio.nombre}",
+                            "Nuevos datos en la aplicacion",
+                            VerEjercicio::class.java
+                        )
+
+                    }
+                }
+
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                    val pojo_ejercicio = snapshot.getValue(Ejercicio::class.java)
+                    if (!pojo_ejercicio!!.notificacion_usuario.equals(androidId) && pojo_ejercicio.estado_noti!!.equals(
+                            Estado.MODIFICADO
+                        )
+                    ) {
+                        db_ref.child("ejercicios").child("series").child(pojo_ejercicio.id!!)
+                            .child("estado_noti").setValue(Estado.NOTIFICADO)
+                        generarNotificacion(
+                            generador.incrementAndGet(), pojo_ejercicio,
+                            "Se ha modificado un ejercicio, ${pojo_ejercicio.nombre}",
+                            "Nuevos datos en la aplicacion",
+                            EditarEjercicio::class.java
+                        )
+                    }
+                }
+
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+                    val pojo_ejercicio = snapshot.getValue(Ejercicio::class.java)
+                    if (!pojo_ejercicio!!.notificacion_usuario.equals(androidId)) {
+                        db_ref.child("ejercicios").child("series").child(pojo_ejercicio.id!!)
+                            .child("estado_noti").setValue(Estado.NOTIFICADO)
+                        generarNotificacion(
+                            generador.incrementAndGet(), pojo_ejercicio,
+                            "Se ha eliminado un ejercicio, ${pojo_ejercicio.nombre}",
+                            "Nuevos datos en la aplicacion",
+                            VerEjercicio::class.java
+                        )
+
+                    }
+                }
+
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
     }
 
 
@@ -77,76 +147,7 @@ class MainActivity : AppCompatActivity() {
             )
                 notify(id_noti, notificacion)
         }
-        crearCanalNotificaciones()
-        androidId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
-        db_ref = FirebaseDatabase.getInstance().reference
-        generador = AtomicInteger(0)
 
-        //Controlador de notificaciones
-        db_ref.child("ejercicios").child("series")
-            .addChildEventListener(object : ChildEventListener {
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val pojo_ejercicio = snapshot.getValue(Ejercicio::class.java)
-                    if (pojo_ejercicio!!.notificacion_usuario.equals(androidId) && pojo_ejercicio.estado_noti!!.equals(
-                            Estado.NOTIFICADO
-                        )
-                    ) {
-                        db_ref.child("ejercicios").child("series").child(pojo_ejercicio.id!!)
-                            .child("estado_noti").setValue(Estado.NOTIFICADO)
-                        generarNotificacion(
-                            generador.incrementAndGet(), pojo_ejercicio,
-                            "Se ha creado un nuevo ejercicio, ${pojo_ejercicio.nombre}",
-                            "Nuevos datos en la aplicacion",
-                            VerEjercicio::class.java
-                        )
-
-                    }
-                }
-
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    val pojo_ejercicio = snapshot.getValue(Ejercicio::class.java)
-                    if (pojo_ejercicio!!.notificacion_usuario.equals(androidId) && pojo_ejercicio.estado_noti!!.equals(
-                            Estado.MODIFICADO
-                        )
-                    ) {
-                        db_ref.child("ejercicios").child("series").child(pojo_ejercicio.id!!)
-                            .child("estado_noti").setValue(Estado.NOTIFICADO)
-                        generarNotificacion(
-                            generador.incrementAndGet(), pojo_ejercicio,
-                            "Se ha modificado un ejercicio, ${pojo_ejercicio.nombre}",
-                            "Nuevos datos en la aplicacion",
-                            EditarEjercicio::class.java
-                        )
-                    }
-                }
-
-                override fun onChildRemoved(snapshot: DataSnapshot) {
-                    val pojo_ejercicio = snapshot.getValue(Ejercicio::class.java)
-                    if (pojo_ejercicio!!.notificacion_usuario.equals(androidId) && pojo_ejercicio.estado_noti!!.equals(
-                            Estado.NOTIFICADO
-                        )
-                    ) {
-                        db_ref.child("ejercicios").child("series").child(pojo_ejercicio.id!!)
-                            .child("estado_noti").setValue(Estado.NOTIFICADO)
-                        generarNotificacion(
-                            generador.incrementAndGet(), pojo_ejercicio,
-                            "Se ha eliminado un ejercicio, ${pojo_ejercicio.nombre}",
-                            "Nuevos datos en la aplicacion",
-                            VerEjercicio::class.java
-                        )
-
-                    }
-                }
-
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-
-            })
     }
 
     private fun crearCanalNotificaciones() {

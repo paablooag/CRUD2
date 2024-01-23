@@ -5,8 +5,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
+import android.provider.Settings
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -83,6 +82,8 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
             launch {
                 val url_imagen_firebase=
                     Utilidades.guardarImagen(st_ref, id_generado!!,url_maquina!!)
+//obtiene el id del dispositivo
+                val androidId= Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
 
                 Utilidades.escribirEjercicio(
                     db_ref, id_generado!!,
@@ -91,7 +92,9 @@ class CrearEjercicio : AppCompatActivity(), CoroutineScope {
                     repeticiones.text.trim().toString().toInt(),
                     url_imagen_firebase,
                     fecha,
-                    rating.rating
+                    rating.rating,
+                    Estado.CREADO,
+                    androidId
                 )
                 Utilidades.tostadaCorrutina(
                     this_activity,

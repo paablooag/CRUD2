@@ -2,6 +2,7 @@ package com.example.crud
 
 import android.content.Context
 import android.content.Intent
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,18 +51,27 @@ class EjercicioAdaptador(private val lista_ejercicio: MutableList<Ejercicio>):
 
         holder.editar.setOnClickListener {
             val newintent = Intent(contexto,EditarEjercicio::class.java)
-            println("hasta aqui he llegado")
             newintent.putExtra("ejercicios", item_actual)
-            println("hasta aqui tambien")
             contexto.startActivity(newintent)
         }
 
         holder.eliminar.setOnClickListener {
             val  db_ref = FirebaseDatabase.getInstance().getReference()
             val sto_ref = FirebaseStorage.getInstance().getReference()
+
+            val androidId = Settings.Secure.getString(contexto.contentResolver, Settings.Secure.ANDROID_ID)
+
+
+
             lista_filtrada.remove(item_actual)
+
             sto_ref.child("ejercicios").child("series")
                 .child("imagenes").child(item_actual.id!!).delete()
+
+            //Cambiamos el user notificador ya que puede ser otro el que se borre
+            db_ref.child("ejercicios").child("series")
+                .child(item_actual.id!!).child("notificacion_usuario").setValue(androidId)
+
             db_ref.child("ejercicios").child("series")
                 .child(item_actual.id!!).removeValue()
 
